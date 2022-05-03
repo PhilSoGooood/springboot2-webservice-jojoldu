@@ -19,14 +19,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    compileOnly 'org.projectlombok:lombok'
-    compileOnly 'org.springframework.boot:spring-boot-starter-mustache'
-    testCompileOnly 'org.springframework.boot:spring-boot-starter-mustache'
+    implementation 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-mustache'
+    testImplementation 'org.springframework.boot:spring-boot-starter-mustache'
     annotationProcessor 'org.projectlombok:lombok'
-    testCompileOnly 'org.projectlombok:lombok'
+    testImplementation 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.security:spring-security-test'
     testAnnotationProcessor 'org.projectlombok:lombok'
-    compileOnly 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    compileOnly 'org.springframework.session:spring-session-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.session:spring-session-jdbc'
 }
 
 tasks.named('test') {

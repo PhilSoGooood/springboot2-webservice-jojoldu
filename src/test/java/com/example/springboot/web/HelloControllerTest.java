@@ -7,19 +7,28 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.example.springboot.config.auth.SecurityConfig;
+
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = HelloController.class)
+@WebMvcTest(controllers = HelloController.class, excludeFilters = {
+	@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
+	}
+)
 class HelloControllerTest {
 
 	@Autowired
 	private MockMvc mvc;
 
+	@WithMockUser(roles = "UESR")
 	@Test
 	@DisplayName("hello가 return 된다")
 	public void hello() throws Exception {
@@ -27,7 +36,7 @@ class HelloControllerTest {
 
 		mvc.perform(get("/hello")).andExpect(status().isOk()).andExpect(content().string(hello));
 	}
-
+	@WithMockUser(roles = "UESR")
 	@Test
 	@DisplayName("helloDto가 리턴된다")
 	void helloDto() throws Exception {
